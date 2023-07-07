@@ -84,7 +84,7 @@ namespace YandexDeliveryAPI.Services.Services
             }
             catch (Exception ex)
             {
-                logger.LogError($"DeliveryService.GetDeliveryStatus error :{ex.GetAllMessages()}");
+                logger.LogError($"DeliveryService.GetDeliveryStatusAsync error :{ex.GetAllMessages()}");
                 return new Answer<CreatedClaimModel>(400, "Не опознанная ошибка", ex.Message);
             }
         }
