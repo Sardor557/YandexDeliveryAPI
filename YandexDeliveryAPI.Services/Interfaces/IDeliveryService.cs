@@ -7,7 +7,7 @@ namespace YandexDeliveryAPI.Services.Interfaces
 {
     public interface IDeliveryService
     {
-        ValueTask<Answer<CreatedClaimModel>> CreateClaimAsync(ClaimModel model);
-        ValueTask<Answer<CreatedClaimModel>> GetDeliveryStatusAsync(string uuid);
+        ValueTask<Answer<ClaimInfoModel>> CreateClaimAsync(ClaimModel model);
+        ValueTask<Answer<ClaimInfoModel>> GetDeliveryStatusAsync(string uuid);
     }
 }

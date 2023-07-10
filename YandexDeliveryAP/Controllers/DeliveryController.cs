@@ -22,9 +22,9 @@ namespace YandexDeliveryAPI.Controllers
         public DeliveryController(IDeliveryService service) => this.service = service;
 
         [HttpPost("create_claim")]
-        public ValueTask<Answer<CreatedClaimModel>> CreateClaimAsync(ClaimModel claim) => service.CreateClaimAsync(claim);
+        public ValueTask<Answer<ClaimInfoModel>> CreateClaimAsync(ClaimModel claim) => service.CreateClaimAsync(claim);
 
         [HttpGet("{uuid}")]
-        public ValueTask<Answer<CreatedClaimModel>> GetDeliveryStatusAsync(string uuid) => service.GetDeliveryStatusAsync(uuid);
+        public ValueTask<Answer<ClaimInfoModel>> GetDeliveryStatusAsync(string uuid) => service.GetDeliveryStatusAsync(uuid);
     }
 }
