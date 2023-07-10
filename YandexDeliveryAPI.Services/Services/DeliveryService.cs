@@ -1,6 +1,6 @@
 ﻿using AsbtCore.UtilsV2;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using System;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -16,16 +16,16 @@ namespace YandexDeliveryAPI.Services.Services
     public sealed class DeliveryService : IDeliveryService
     {
         private readonly ILogger<DeliveryService> logger;
-        private readonly IConfiguration conf;
         private readonly HttpClient client;
+        private readonly Settings settings;
 
-        public DeliveryService(ILogger<DeliveryService> logger, IConfiguration conf)
+        public DeliveryService(ILogger<DeliveryService> logger, IOptionsMonitor<Settings> settings)
         {
             this.logger = logger;
-            this.conf = conf;
+            this.settings = settings.CurrentValue;
             client = new HttpClient();
 
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", conf["YandexAPI:Y_TOKEN"]);
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", this.settings.Y_TOKEN);
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             client.DefaultRequestHeaders.AcceptLanguage.Add(new StringWithQualityHeaderValue("ru"));
         }
@@ -34,9 +34,9 @@ namespace YandexDeliveryAPI.Services.Services
         {
             try
             {
-                string reqUrl = string.Format(conf["YandexAPI:CreateClaim"], model.Guid);
+                string reqUrl = string.Format(settings.CreateClaimUrl, model.Guid);
                 model.Guid = null;
-                var res = await RequestApiAsync(new HttpRequestMessage(HttpMethod.Post, reqUrl), model);
+                var res = await RequestApiAsync<ClaimInfoModel>(new HttpRequestMessage(HttpMethod.Post, reqUrl), model);
 
                 if (!res.code.IsNullorEmpty() && res.code != "200")
                     return new Answer<ClaimInfoModel>(600, $"Ошибка при запросе, код: {res.code}", res.message);
@@ -50,7 +50,7 @@ namespace YandexDeliveryAPI.Services.Services
             }
         }
 
-        private async ValueTask<ClaimInfoModel> RequestApiAsync(HttpRequestMessage req, ClaimModel model = null)
+        private async ValueTask<T> RequestApiAsync<T>(HttpRequestMessage req, object model = null)
         {
             try
             {    
@@ -59,7 +59,7 @@ namespace YandexDeliveryAPI.Services.Services
 
                 var res = await client.SendAsync(req);
                 var json = await res.Content.ReadAsStringAsync();
-                return json.FromJson<ClaimInfoModel>();
+                return json.FromJson<T>();
             }
             finally { req.Dispose(); }
         }
@@ -68,8 +68,8 @@ namespace YandexDeliveryAPI.Services.Services
         {
             try
             {
-                string url = string.Format(conf["YandexAPI:GetDeliveryStatus"], uuid);
-                var res = await RequestApiAsync(new HttpRequestMessage(HttpMethod.Post, url));
+                string url = string.Format(settings.DeliveryStatusUrl, uuid);
+                var res = await RequestApiAsync<ClaimInfoModel>(new HttpRequestMessage(HttpMethod.Post, url));
 
                 if (!res.code.IsNullorEmpty() && res.code != "200")                
                     return new Answer<ClaimInfoModel>(600, $"Ошибка при запросе, код: {res.code}", res.message);
@@ -81,6 +81,33 @@ namespace YandexDeliveryAPI.Services.Services
                 logger.LogError($"DeliveryService.GetDeliveryStatusAsync error :{ex.GetAllMessages()}");
                 return new Answer<ClaimInfoModel>(400, "Не опознанная ошибка", ex.Message);
             }
+        }
+
+        public async ValueTask<Answer<Models.ResponseModels.CancelClaimModel>> CancelClaimAsync(string uuid)
+        {
+            try
+            {
+                string url = string.Format(settings.CancelClaimUrl, uuid);
+                var cancel = new Models.RequestModels.CancelClaimModel { cancel_state = "free", version = 1 };
+                var res = await RequestApiAsync<Models.ResponseModels.CancelClaimModel>(new HttpRequestMessage(HttpMethod.Post, url), cancel);
+
+                return new Answer<Models.ResponseModels.CancelClaimModel>(0, "OK", "OK", res);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError($"DeliveryService.CancelClaimAsync error :{ex.GetAllMessages()}");
+                return new Answer<Models.ResponseModels.CancelClaimModel>(400, "Не опознанная ошибка", ex.Message);
+            }
+        }
+
+        public ValueTask<Answer<CourierInfoModel>> GetCourierPhoneAsync(Models.RequestModels.CancelClaimModel value)
+        {
+            throw new NotImplementedException();
+        }
+
+        public ValueTask<Answer<ConfirmClaimModel>> ConfirmClaimAsync(string uuid)
+        {
+            throw new NotImplementedException();
         }
     }
 }

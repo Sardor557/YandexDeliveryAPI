@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace YandexDeliveryAPI.Services.Models.ResponseModels
 {
-    public class CreatedClaimModel
+    public class ClaimInfoModel
     {
         public string available_cancel_state { get; set; }
         public Callback_Properties callback_properties { get; set; }

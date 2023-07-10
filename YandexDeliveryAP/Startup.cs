@@ -16,6 +16,7 @@ using Microsoft.AspNetCore.Http;
 using Serilog;
 using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.ResponseCompression;
+using YandexDeliveryAPI.Services.Models;
 
 namespace YandexDeliveryAPI
 {
@@ -52,6 +53,8 @@ namespace YandexDeliveryAPI
                         });
             });
 
+            services.Configure<Settings>(conf.GetSection("YandexAPI"));
+            
             services.AddEndpointsApiExplorer();
             services.AddMySwagger();
 
