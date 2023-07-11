@@ -12,5 +12,6 @@ namespace YandexDeliveryAPI.Services.Interfaces
         ValueTask<Answer<CancelClaimModel>> CancelClaimAsync(string uuid);
         ValueTask<Answer<CourierInfoModel>> GetCourierPhoneAsync(string uuid);
         ValueTask<Answer<ConfirmClaimModel>> ConfirmClaimAsync(string uuid);
+        Answer<ClaimInfoModel> ListenCallbackAsync(object model);
     }
 }

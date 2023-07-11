@@ -1,11 +1,13 @@
 ﻿using Newtonsoft.Json;
 using System;
+using YandexDeliveryAPI.Services.Models.ResponseModels;
 
 namespace YandexDeliveryAPI.Services.Models.RequestModels
 {
     public class ClaimModel
     {
         public Client_Requirements client_requirements { get; set; }
+        public Callback_Properties callback_properties { get; set; }
         public string comment { get; set; }
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]

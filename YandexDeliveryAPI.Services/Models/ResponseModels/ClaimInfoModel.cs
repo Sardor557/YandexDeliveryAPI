@@ -44,6 +44,7 @@ namespace YandexDeliveryAPI.Services.Models.ResponseModels
 
         public string code { get; set; }
         public string message { get; set; }
+        public string claim_id { get; set; }
     }
 
     public class Callback_Properties

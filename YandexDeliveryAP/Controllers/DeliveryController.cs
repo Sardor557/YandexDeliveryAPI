@@ -36,5 +36,8 @@ namespace YandexDeliveryAPI.Controllers
 
         [HttpGet("confirm/{uuid}")]
         public ValueTask<Answer<ConfirmClaimModel>> ConfirmClaimAsync(string uuid) => service.ConfirmClaimAsync(uuid);
+
+        [HttpPost("listen")]
+        public Answer<ClaimInfoModel> ListenCallbackAsync(object model) => service.ListenCallbackAsync(model);
     }
 }
