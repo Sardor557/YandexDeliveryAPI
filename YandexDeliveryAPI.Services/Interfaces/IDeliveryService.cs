@@ -9,8 +9,8 @@ namespace YandexDeliveryAPI.Services.Interfaces
     {
         ValueTask<Answer<ClaimInfoModel>> CreateClaimAsync(ClaimModel model);
         ValueTask<Answer<ClaimInfoModel>> GetDeliveryStatusAsync(string uuid);
-        ValueTask<Answer<Models.ResponseModels.CancelClaimModel>> CancelClaimAsync(string uuid);
-        ValueTask<Answer<CourierInfoModel>> GetCourierPhoneAsync(Models.RequestModels.CancelClaimModel value);
+        ValueTask<Answer<CancelClaimModel>> CancelClaimAsync(string uuid);
+        ValueTask<Answer<CourierInfoModel>> GetCourierPhoneAsync(ClaimIdModel claimId);
         ValueTask<Answer<ConfirmClaimModel>> ConfirmClaimAsync(string uuid);
     }
 }

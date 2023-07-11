@@ -12,6 +12,7 @@ namespace YandexDeliveryAPI.Services.Models
         public string CreateClaimUrl { get; set; }
         public string DeliveryStatusUrl { get; set; }
         public string CancelClaimUrl { get; set; }
+        public string CourierPhoneUrl { get; set; } 
         public string ConfirmClaimUrl { get; set; }
     }
 }

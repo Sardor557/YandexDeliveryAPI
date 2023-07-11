@@ -83,31 +83,51 @@ namespace YandexDeliveryAPI.Services.Services
             }
         }
 
-        public async ValueTask<Answer<Models.ResponseModels.CancelClaimModel>> CancelClaimAsync(string uuid)
+        public async ValueTask<Answer<CancelClaimModel>> CancelClaimAsync(string uuid)
         {
             try
             {
                 string url = string.Format(settings.CancelClaimUrl, uuid);
-                var cancel = new Models.RequestModels.CancelClaimModel { cancel_state = "free", version = 1 };
-                var res = await RequestApiAsync<Models.ResponseModels.CancelClaimModel>(new HttpRequestMessage(HttpMethod.Post, url), cancel);
+                var cancel = new CancelModel { cancel_state = "free", version = 1 };
+                var res = await RequestApiAsync<CancelClaimModel>(new HttpRequestMessage(HttpMethod.Post, url), cancel);
 
-                return new Answer<Models.ResponseModels.CancelClaimModel>(0, "OK", "OK", res);
+                return new Answer<CancelClaimModel>(0, "OK", "OK", res);
             }
             catch (Exception ex)
             {
                 logger.LogError($"DeliveryService.CancelClaimAsync error :{ex.GetAllMessages()}");
-                return new Answer<Models.ResponseModels.CancelClaimModel>(400, "Не опознанная ошибка", ex.Message);
+                return new Answer<CancelClaimModel>(400, "Не опознанная ошибка", ex.Message);
             }
         }
 
-        public ValueTask<Answer<CourierInfoModel>> GetCourierPhoneAsync(Models.RequestModels.CancelClaimModel value)
+        public async ValueTask<Answer<CourierInfoModel>> GetCourierPhoneAsync(ClaimIdModel claimId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var res = await RequestApiAsync<CourierInfoModel>(new HttpRequestMessage(HttpMethod.Post, settings.CourierPhoneUrl), claimId);
+                return new Answer<CourierInfoModel>(0, "OK", "OK", res);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError($"DeliveryService.GetCourierPhoneAsync error :{ex.GetAllMessages()}");
+                return new Answer<CourierInfoModel>(400, "Не опознанная ошибка", ex.Message);
+            }
         }
 
-        public ValueTask<Answer<ConfirmClaimModel>> ConfirmClaimAsync(string uuid)
+        public async ValueTask<Answer<ConfirmClaimModel>> ConfirmClaimAsync(string uuid)
         {
-            throw new NotImplementedException();
+            try
+            {
+                string url = string.Format(settings.ConfirmClaimUrl, uuid);
+                var version = new VersionModel { version = 1 };
+                var res = await RequestApiAsync<ConfirmClaimModel>(new HttpRequestMessage(HttpMethod.Post, url), version);
+                return new Answer<ConfirmClaimModel>(0, "OK", "OK", res);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError($"DeliveryService.ConfirmClaimAsync error :{ex.GetAllMessages()}");
+                return new Answer<ConfirmClaimModel>(400, "Не опознанная ошибка", ex.Message);
+            }
         }
     }
 }

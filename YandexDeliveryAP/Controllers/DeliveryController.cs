@@ -32,7 +32,7 @@ namespace YandexDeliveryAPI.Controllers
         public ValueTask<Answer<Services.Models.ResponseModels.CancelClaimModel>> CancelClaimAsync(string uuid) => service.CancelClaimAsync(uuid);
 
         [HttpGet("courier_info/{uuid}")]
-        public ValueTask<Answer<CourierInfoModel>> GetCourierPhoneAsync(Services.Models.RequestModels.CancelClaimModel value) => service.GetCourierPhoneAsync(value);
+        public ValueTask<Answer<CourierInfoModel>> GetCourierPhoneAsync(Services.Models.RequestModels.CancelModel value) => service.GetCourierPhoneAsync(value);
 
         [HttpGet("confirm/{uuid}")]
         public ValueTask<Answer<ConfirmClaimModel>> ConfirmClaimAsync(string uuid) => service.ConfirmClaimAsync(uuid);
