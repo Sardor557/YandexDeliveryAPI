@@ -50,20 +50,6 @@ namespace YandexDeliveryAPI.Services.Services
             }
         }
 
-        private async ValueTask<T> RequestApiAsync<T>(HttpRequestMessage req, object model = null)
-        {
-            try
-            {    
-                if (model is not null)
-                    req.Content = new StringContent(model.ToJson(), Encoding.UTF8, "application/json");
-
-                var res = await client.SendAsync(req);
-                var json = await res.Content.ReadAsStringAsync();
-                return json.FromJson<T>();
-            }
-            finally { req.Dispose(); }
-        }
-
         public async ValueTask<Answer<ClaimInfoModel>> GetDeliveryStatusAsync(string uuid)
         {
             try
@@ -100,11 +86,12 @@ namespace YandexDeliveryAPI.Services.Services
             }
         }
 
-        public async ValueTask<Answer<CourierInfoModel>> GetCourierPhoneAsync(ClaimIdModel claimId)
+        public async ValueTask<Answer<CourierInfoModel>> GetCourierPhoneAsync(string uuid)
         {
             try
             {
-                var res = await RequestApiAsync<CourierInfoModel>(new HttpRequestMessage(HttpMethod.Post, settings.CourierPhoneUrl), claimId);
+                var claim = new ClaimIdModel { claim_id = uuid };
+                var res = await RequestApiAsync<CourierInfoModel>(new HttpRequestMessage(HttpMethod.Post, settings.CourierPhoneUrl), claim);
                 return new Answer<CourierInfoModel>(0, "OK", "OK", res);
             }
             catch (Exception ex)
@@ -128,6 +115,20 @@ namespace YandexDeliveryAPI.Services.Services
                 logger.LogError($"DeliveryService.ConfirmClaimAsync error :{ex.GetAllMessages()}");
                 return new Answer<ConfirmClaimModel>(400, "Не опознанная ошибка", ex.Message);
             }
+        }
+
+        private async ValueTask<T> RequestApiAsync<T>(HttpRequestMessage req, object model = null)
+        {
+            try
+            {
+                if (model is not null)
+                    req.Content = new StringContent(model.ToJson(), Encoding.UTF8, "application/json");
+
+                var res = await client.SendAsync(req);
+                var json = await res.Content.ReadAsStringAsync();
+                return json.FromJson<T>();
+            }
+            finally { req.Dispose(); }
         }
     }
 }
