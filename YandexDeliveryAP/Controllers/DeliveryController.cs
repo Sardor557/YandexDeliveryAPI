@@ -15,7 +15,7 @@ namespace YandexDeliveryAPI.Controllers
     [SwaggerTag("Доставка")]
     //[Authorize]
 
-    public class DeliveryController
+    public class DeliveryController: ControllerBase
     {
         private readonly IDeliveryService service;
 
@@ -23,7 +23,7 @@ namespace YandexDeliveryAPI.Controllers
 
 
         [HttpPost("create_claim")]
-        public ValueTask<Answer<ClaimInfoModel>> CreateClaimAsync(ClaimModel claim) => service.CreateClaimAsync(claim);
+        public ValueTask<Answer<ClaimInfoModel>> CreateClaimAsync([FromBody] ClaimModel claim) => service.CreateClaimAsync(claim);
 
         [HttpGet("get_status/{uuid}")]
         public ValueTask<Answer<ClaimInfoModel>> GetDeliveryStatusAsync(string uuid) => service.GetDeliveryStatusAsync(uuid);
@@ -36,8 +36,5 @@ namespace YandexDeliveryAPI.Controllers
 
         [HttpGet("confirm/{uuid}")]
         public ValueTask<Answer<ConfirmClaimModel>> ConfirmClaimAsync(string uuid) => service.ConfirmClaimAsync(uuid);
-
-        [HttpPost("listen")]
-        public Answer<ClaimInfoModel> ListenCallbackAsync(object model) => service.ListenCallbackAsync(model);
     }
 }

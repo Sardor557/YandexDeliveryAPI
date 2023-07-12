@@ -118,19 +118,19 @@ namespace YandexDeliveryAPI.Services.Services
             }
         }
 
-        public Answer<ClaimInfoModel> ListenCallbackAsync(object model)
+        public Answer<JObject> ListenCallbackAsync(object model)
         {
             try
             {
                 var str = model.ToString();
-                JObject.Parse(str);
+                var o = JObject.Parse(str);
 
-                return new Answer<ClaimInfoModel>(0, "OK", "OK", null);
+                return new Answer<JObject>(0, "OK", "OK", o);
             }
             catch (Exception ex)
             {
                 logger.LogError($"DeliveryService.ListenCallbackAsync error :{ex.GetAllMessages()}");
-                return new Answer<ClaimInfoModel>(400, "Не опознанная ошибка", ex.Message);
+                return new Answer<JObject>(400, "Не опознанная ошибка", ex.Message);
             }
         }
 
