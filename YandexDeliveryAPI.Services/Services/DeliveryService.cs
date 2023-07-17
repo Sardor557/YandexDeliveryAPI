@@ -38,8 +38,11 @@ namespace YandexDeliveryAPI.Services.Services
             {
                 string reqUrl = string.Format(settings.CreateClaimUrl, model.Guid);
                 model.Guid = null;
-                string format = "yyyy-MM-ddTHH:mm:ssK";
-                model.due = model.date.ToStr(format) + "+05:00";
+                if (model.date.HasValue)
+                {
+                    string format = "yyyy-MM-ddTHH:mm:ssK";
+                    model.due = model.date.ToStr(format) + "+05:00";
+                }
                 var res = await RequestApiAsync<ClaimInfoModel>(new HttpRequestMessage(HttpMethod.Post, reqUrl), model);
 
                 if (!res.code.IsNullorEmpty() && res.code != "200")
@@ -61,9 +64,9 @@ namespace YandexDeliveryAPI.Services.Services
                 string url = string.Format(settings.DeliveryStatusUrl, uuid);
                 var res = await RequestApiAsync<ClaimInfoModel>(new HttpRequestMessage(HttpMethod.Post, url));
 
-                if (!res.code.IsNullorEmpty() && res.code != "200")                
+                if (!res.code.IsNullorEmpty() && res.code != "200")
                     return new Answer<ClaimInfoModel>(600, $"Ошибка при запросе, код: {res.code}", res.message);
-                
+
                 return new Answer<ClaimInfoModel>(0, "OK", "OK", res);
             }
             catch (Exception ex)
