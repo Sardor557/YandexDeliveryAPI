@@ -3,6 +3,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json.Linq;
 using System;
+using System.Globalization;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -37,6 +38,8 @@ namespace YandexDeliveryAPI.Services.Services
             {
                 string reqUrl = string.Format(settings.CreateClaimUrl, model.Guid);
                 model.Guid = null;
+                string format = "yyyy-MM-ddTHH:mm:ssK";
+                model.due = model.date.ToStr(format) + "+05:00";
                 var res = await RequestApiAsync<ClaimInfoModel>(new HttpRequestMessage(HttpMethod.Post, reqUrl), model);
 
                 if (!res.code.IsNullorEmpty() && res.code != "200")

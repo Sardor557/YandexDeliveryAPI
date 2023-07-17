@@ -11,6 +11,9 @@ namespace YandexDeliveryAPI.Services.Models.RequestModels
         public string comment { get; set; }
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        public DateTime? date { get; set; }
+
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string due { get; set; }
         public Emergency_Contact emergency_contact { get; set; }
         public Item[] items { get; set; }
