@@ -11,7 +11,7 @@ namespace YandexDeliveryAPI.Services.Interfaces
         ValueTask<Answer<ClaimInfoModel>> CreateClaimAsync(ClaimModel model);
         ValueTask<Answer<ClaimInfoModel>> GetDeliveryStatusAsync(string uuid);
         ValueTask<Answer<CancelClaimModel>> CancelClaimAsync(string uuid);
-        ValueTask<Answer<CourierInfoModel>> GetCourierPhoneAsync(string uuid);
+        ValueTask<Answer<CourierInfoModel>> GetCourierInfoAsync(string uuid);
         ValueTask<Answer<ConfirmClaimModel>> ConfirmClaimAsync(string uuid);
     }
 }

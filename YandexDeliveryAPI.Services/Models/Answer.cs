@@ -9,37 +9,37 @@ namespace YandexDeliveryAPI.Services.Models
 
         public Answer()
         {
-            base.AnswereId = 0L;
-            base.AnswereMessage = "default";
-            base.AnswereComment = "";
+            base.AnswerId = 0L;
+            base.AnswerMessage = "default";
+            base.AnswerComment = "";
         }
 
         public Answer(long inAnswereId, string inAnswereMessage, string inAnswereComment)
         {
-            base.AnswereId = inAnswereId;
-            base.AnswereMessage = inAnswereMessage;
-            base.AnswereComment = inAnswereComment;
+            base.AnswerId = inAnswereId;
+            base.AnswerMessage = inAnswereMessage;
+            base.AnswerComment = inAnswereComment;
         }
 
         public Answer(long inAnswereId, string inAnswereMessage)
         {
-            base.AnswereId = inAnswereId;
-            base.AnswereMessage = (base.AnswereComment = inAnswereMessage);
+            base.AnswerId = inAnswereId;
+            base.AnswerMessage = (base.AnswerComment = inAnswereMessage);
         }
 
         public Answer(long inAnswereId, string inAnswereMessage, string inAnswereComment, T inData)
         {
-            base.AnswereId = inAnswereId;
-            base.AnswereMessage = inAnswereMessage;
-            base.AnswereComment = inAnswereComment;
+            base.AnswerId = inAnswereId;
+            base.AnswerMessage = inAnswereMessage;
+            base.AnswerComment = inAnswereComment;
             Data = inData;
         }
 
         public Answer(T inData)
         {
-            base.AnswereId = 1L;
-            base.AnswereMessage = "Ok";
-            base.AnswereComment = "";
+            base.AnswerId = 1L;
+            base.AnswerMessage = "Ok";
+            base.AnswerComment = "";
             Data = inData;
         }
 

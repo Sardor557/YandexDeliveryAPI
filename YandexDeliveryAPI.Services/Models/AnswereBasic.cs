@@ -2,30 +2,30 @@
 {
     public class AnswereBasic
     {
-        public long AnswereId { get; set; }
+        public long AnswerId { get; set; }
 
-        public string AnswereMessage { get; set; }
+        public string AnswerMessage { get; set; }
 
-        public string AnswereComment { get; set; }
+        public string AnswerComment { get; set; }
 
         public AnswereBasic()
         {
-            AnswereId = 1L;
-            AnswereMessage = "default";
-            AnswereComment = "";
+            AnswerId = 1L;
+            AnswerMessage = "default";
+            AnswerComment = "";
         }
 
         public AnswereBasic(long inAnswereId, string inAnswereMessage)
         {
-            AnswereId = inAnswereId;
-            AnswereMessage = (AnswereComment = inAnswereMessage);
+            AnswerId = inAnswereId;
+            AnswerMessage = (AnswerComment = inAnswereMessage);
         }
 
         public AnswereBasic(long inAnswereId, string inAnswereMessage, string inAnswereComment)
         {
-            AnswereId = inAnswereId;
-            AnswereMessage = inAnswereMessage;
-            AnswereComment = inAnswereComment;
+            AnswerId = inAnswereId;
+            AnswerMessage = inAnswereMessage;
+            AnswerComment = inAnswereComment;
         }
     }
 }

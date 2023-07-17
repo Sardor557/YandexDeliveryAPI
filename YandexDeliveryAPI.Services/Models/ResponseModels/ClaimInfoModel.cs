@@ -81,7 +81,7 @@ namespace YandexDeliveryAPI.Services.Models.ResponseModels
         public string car_color { get; set; }
         public string car_color_hex { get; set; }
         public string car_model { get; set; }
-        public string car_11 { get; set; }
+        public string car_number { get; set; }
         public string courier_name { get; set; }
         public string legal_name { get; set; }
         public string transport_type { get; set; }

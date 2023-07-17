@@ -87,7 +87,7 @@ namespace YandexDeliveryAPI.Services.Services
             }
         }
 
-        public async ValueTask<Answer<CourierInfoModel>> GetCourierPhoneAsync(string uuid)
+        public async ValueTask<Answer<CourierInfoModel>> GetCourierInfoAsync(string uuid)
         {
             try
             {

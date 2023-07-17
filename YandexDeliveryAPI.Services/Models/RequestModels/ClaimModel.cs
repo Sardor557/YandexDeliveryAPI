@@ -11,7 +11,7 @@ namespace YandexDeliveryAPI.Services.Models.RequestModels
         public string comment { get; set; }
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public DateTime? due { get; set; }
+        public string due { get; set; }
         public Emergency_Contact emergency_contact { get; set; }
         public Item[] items { get; set; }
         public bool optional_return { get; set; }
@@ -49,7 +49,9 @@ namespace YandexDeliveryAPI.Services.Models.RequestModels
         public int quantity { get; set; }
         public Size size { get; set; }
         public string title { get; set; }
-        public int weight { get; set; }
+
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        public int? weight { get; set; }
     }
 
     public class Size
