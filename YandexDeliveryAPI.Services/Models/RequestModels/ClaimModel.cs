@@ -97,6 +97,7 @@ namespace YandexDeliveryAPI.Services.Models.RequestModels
         public string email { get; set; }
         public string name { get; set; }
         public string phone { get; set; }
+        public string phone_additional_code { get; set; }
     }
 
     public class External_Order_Cost
