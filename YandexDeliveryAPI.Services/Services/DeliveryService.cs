@@ -1,9 +1,7 @@
 ﻿using AsbtCore.UtilsV2;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Newtonsoft.Json.Linq;
 using System;
-using System.Globalization;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -121,22 +119,6 @@ namespace YandexDeliveryAPI.Services.Services
             {
                 logger.LogError($"DeliveryService.ConfirmClaimAsync error :{ex.GetAllMessages()}");
                 return new Answer<ConfirmClaimModel>(400, "Не опознанная ошибка", ex.Message);
-            }
-        }
-
-        public Answer<JObject> ListenCallbackAsync(object model)
-        {
-            try
-            {
-                var str = model.ToString();
-                var o = JObject.Parse(str);
-
-                return new Answer<JObject>(0, "OK", "OK", o);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError($"DeliveryService.ListenCallbackAsync error :{ex.GetAllMessages()}");
-                return new Answer<JObject>(400, "Не опознанная ошибка", ex.Message);
             }
         }
 
