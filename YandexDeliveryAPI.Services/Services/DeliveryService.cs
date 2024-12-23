@@ -129,7 +129,7 @@ namespace YandexDeliveryAPI.Services.Services
                 if (model is not null)
                     req.Content = new StringContent(model.ToJson(), Encoding.UTF8, "application/json");
 
-                var res = await client.SendAsync(req);
+                using var res = await client.SendAsync(req);
                 var json = await res.Content.ReadAsStringAsync();
                 return json.FromJson<T>();
             }
