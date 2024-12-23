@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace YandexDeliveryAPI.Services.Models.ResponseModels
+﻿namespace YandexDeliveryAPI.Services.Models.ResponseModels
 {
     public class ClaimInfoModel
     {
@@ -15,7 +9,7 @@ namespace YandexDeliveryAPI.Services.Models.ResponseModels
         public string comment { get; set; }
         public string corp_client_id { get; set; }
         public string created_ts { get; set; }
-        public int current_point_id { get; set; }
+        public long current_point_id { get; set; }
         public string due { get; set; }
         public emergency_Contact emergency_contact { get; set; }
         public error_Messages[] error_messages { get; set; }
@@ -141,10 +135,10 @@ namespace YandexDeliveryAPI.Services.Models.ResponseModels
     {
         public string cost_currency { get; set; }
         public string cost_value { get; set; }
-        public int droppof_point { get; set; }
+        public long droppof_point { get; set; }
         public string extra_id { get; set; }
         public Fiscalization fiscalization { get; set; }
-        public int pickup_point { get; set; }
+        public long pickup_point { get; set; }
         public int quantity { get; set; }
         public size size { get; set; }
         public string title { get; set; }
@@ -191,7 +185,7 @@ namespace YandexDeliveryAPI.Services.Models.ResponseModels
         public contact contact { get; set; }
         public external_Order_Cost external_order_cost { get; set; }
         public string external_order_id { get; set; }
-        public int id { get; set; }
+        public long id { get; set; }
         public bool leave_under_door { get; set; }
         public bool meet_outside { get; set; }
         public bool modifier_age_check { get; set; }

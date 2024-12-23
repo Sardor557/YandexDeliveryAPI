@@ -46,9 +46,9 @@ namespace YandexDeliveryAPI.Services.Models.RequestModels
     {
         public string cost_currency { get; set; }
         public string cost_value { get; set; }
-        public int droppof_point { get; set; }
+        public long droppof_point { get; set; }
         public string extra_id { get; set; }
-        public int pickup_point { get; set; }
+        public long pickup_point { get; set; }
         public int quantity { get; set; }
         public Size size { get; set; }
         public string title { get; set; }
@@ -71,7 +71,7 @@ namespace YandexDeliveryAPI.Services.Models.RequestModels
         public External_Order_Cost external_order_cost { get; set; }
         public string external_order_id { get; set; }
         public string pickup_code { get; set; }
-        public int point_id { get; set; }
+        public long point_id { get; set; }
         public bool skip_confirmation { get; set; }
         public string type { get; set; }
         public int visit_order { get; set; }
